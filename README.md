@@ -1,1 +1,4 @@
-# SEMI1
+- Frontend Mauricio
+- Backend Node Ricardo
+- Backend Python Osmar
+- Bucket, Bases ( con queries) y balanceador de carga Erick
