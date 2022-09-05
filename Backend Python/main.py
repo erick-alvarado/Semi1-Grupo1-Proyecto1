@@ -28,6 +28,11 @@ credentials = {
     
 }
 
+@app.route('/hola',methods=['GET'])
+def holamundo():
+    response = {'message': "Hola personitas"}
+    return jsonify(response)
+
 
 @app.route('/subirimage', methods=['POST'])
 def uploadS3():
