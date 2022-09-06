@@ -3,7 +3,6 @@ from flask import Flask,render_template,request,redirect,url_for
 from flask import jsonify
 from flask_cors import CORS
 from config import config
-from querys import querys
 import boto3
 from boto3.s3.transfer import S3Transfer
 from werkzeug.utils import secure_filename
