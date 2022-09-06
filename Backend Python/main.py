@@ -49,15 +49,18 @@ def newuser():
     f = request.files['file']
     basepath = os.path.dirname(__file__) # La ruta donde se encuentra el archivo actual
     upload_path = os.path.join (basepath, app.config['UPLOAD_PATH'].replace("/",""), secure_filename (f.filename)) #Nota: Si no hay una carpeta, debe crearla primero, de lo contrario se le preguntará que no existe tal ruta
+    extension = "." +upload_path.split('.')[-1]
     f.save(upload_path)
+
+
   
     #Segundo se envía a S3
 
     client = boto3.client('s3',app.config['S3_BUCKET_REGION'],**credentials)
     transfer = S3Transfer(client)
-    transfer.upload_file(upload_path,app.config['S3_BUCKET_NAME'],keyS3)
+    transfer.upload_file(upload_path,app.config['S3_BUCKET_NAME'],keyS3+extension)
 
-    file_url = '%s/%s/%s' % (client.meta.endpoint_url,app.config['S3_BUCKET_NAME'],keyS3)
+    file_url = '%s/%s/%s%s' % (client.meta.endpoint_url,app.config['S3_BUCKET_NAME'],keyS3,extension)
     os.remove(upload_path)
    
     user = request.form['user']
@@ -66,7 +69,7 @@ def newuser():
     urlfoto = file_url 
 
 
-    query = "INSERT INTO usuario (usuario, contrasena, nombre, url_foto) values('" + \
+    query = "INSERT INTO usuario (correo, contrasena, nombre, url_foto) values('" + \
         user + "', '" + str(passmd5.hexdigest()) + "', '" + email + "', '" + urlfoto + "')"
     cur = mysql.connection.cursor()
     cur.execute(query)
@@ -85,43 +88,6 @@ def newuser():
 def CONNECT_DB():
     CS = mysql.connection.cursor()
     response = {'message': "Hola personitas"}
-    return jsonify(response)
-
-@app.route('/hola',methods=['GET'])
-def holamundo():
-    response = {'message': "Hola personitas"}
-    return jsonify(response)
-
-
-@app.route('/subirimage', methods=['POST'])
-def uploadS3():
-
-    keyS3 = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(16))
-
-    
-        
-    #Reviso si la carpeta ya existe si no, la creo
-    try:
-        os.stat(os.path.dirname(__file__) + app.config['UPLOAD_PATH'])
-    except:
-        os.mkdir(os.path.dirname(__file__) + app.config['UPLOAD_PATH'])
-
-    #Primero se sube el archivo
-
-    f = request.files['file']
-    basepath = os.path.dirname(__file__) # La ruta donde se encuentra el archivo actual
-    upload_path = os.path.join (basepath, app.config['UPLOAD_PATH'].replace("/",""), secure_filename (f.filename)) #Nota: Si no hay una carpeta, debe crearla primero, de lo contrario se le preguntará que no existe tal ruta
-    f.save(upload_path)
-  
-    #Segundo se envía a S3
-
-    client = boto3.client('s3',app.config['S3_BUCKET_REGION'],**credentials)
-    transfer = S3Transfer(client)
-    transfer.upload_file(upload_path,app.config['S3_BUCKET_NAME'],keyS3)
-
-    file_url = '%s/%s/%s' % (client.meta.endpoint_url,app.config['S3_BUCKET_NAME'],keyS3)
-    os.remove(upload_path)
-    response = {'message': file_url}
     return jsonify(response)
 
 
