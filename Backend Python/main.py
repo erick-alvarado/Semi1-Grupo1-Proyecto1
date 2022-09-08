@@ -87,12 +87,16 @@ def newuser():
 @app.route('/api/login', methods=['POST'])
 def login():
     data = {}
+    dataprivate={}
+    datapublic={}
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
         email = request.json['email']
         contra = request.json['pass']
         passmd5 = hashlib.md5(contra.encode()).hexdigest()
+        filesprivate = []
+        filespublic = []
 
         query = "SELECT id_usuario,correo,contrasena,nombre,url_foto from usuario WHERE correo =\'" + str(email)+"\';"
         cur = mysql.connection.cursor()
@@ -107,8 +111,30 @@ def login():
             if (passmd5 == resultado[2]):
                 data['foto']=resultado[4]
                 data['user']=resultado[0]
-                data['filesprivate']=[]
-                data['filespublic']=[]
+                query = "SELECT * from archivo WHERE id_usuario = '"+str(resultado[0])+"' AND visibilidad ='true';"
+                cur = mysql.connection.cursor()
+                cur.execute(query)
+                resultado2 = cur.fetchall()
+                for x in resultado2:
+                    datapublic['name']=x[2]
+                    datapublic['path']=x[4]
+                    filespublic.append(datapublic)
+                    datapublic ={}
+
+
+                query = "SELECT * from archivo WHERE id_usuario = '"+str(resultado[0])+"' AND visibilidad ='false';"
+                cur = mysql.connection.cursor()
+                cur.execute(query)
+                resultado3 = cur.fetchall()
+                for x in resultado3:
+                    dataprivate['name']=x[2]
+                    dataprivate['path']=x[4]
+                    filesprivate.append(dataprivate)
+                    dataprivate ={}
+
+
+                data['filesprivate']=filesprivate
+                data['filespublic']=filespublic
                 response = {"data":data,"msg":"Bienvenido","Success":"false"}
                 return jsonify(response)
             else:
@@ -193,6 +219,18 @@ def deletefile():
 
     else:
         return 'Content-Type not supported!'
+
+@app.route('/api/allusers', methods=['GET'])
+def allusers():
+    query = "SELECT u.id_usuario, u.nombre,u.url_foto, a.nombre from usuario u JOIN archivo a ON u.id_usuario = a.id_usuario WHERE a.visibilidad = 'true' GROUP BY a.id_archivo;"
+    cur = mysql.connection.cursor()
+    cur.execute(query)
+    resultado = cur.fetchall()
+    response = {"msg":resultado,"Success":"false"}
+    return jsonify(response)
+
+      
+
 
 @app.route('/')
 def CONNECT_DB():
