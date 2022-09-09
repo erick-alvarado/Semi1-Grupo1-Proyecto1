@@ -98,7 +98,6 @@ def newuser():
     email = request.form['email']
     passmd5 = hashlib.md5(data['pass'].encode())
     
-
     query = "INSERT INTO usuario (correo, contrasena, nombre, url_foto) values('" + \
         email  + "', '" + str(passmd5.hexdigest()) + "', '" + user + "', '" + str(urlfoto) + "')"
     cur = mysql.connection.cursor()
@@ -150,7 +149,6 @@ def login():
                     filespublic.append(datapublic)
                     datapublic ={}
 
-
                 query = "SELECT * from archivo WHERE id_usuario = '"+str(resultado[0])+"' AND visibilidad ='false';"
                 cur = mysql.connection.cursor()
                 cur.execute(query)
@@ -160,7 +158,6 @@ def login():
                     dataprivate['path']=x[4]
                     filesprivate.append(dataprivate)
                     dataprivate ={}
-
 
                 data['filesprivate']=filesprivate
                 data['filespublic']=filespublic
@@ -173,7 +170,6 @@ def login():
     else:
         return 'Content-Type not supported!'
 
-
 @app.route('/api/uploadfile', methods=['POST'])
 def uploadfile():
     data = request.form
@@ -181,6 +177,12 @@ def uploadfile():
     contra = request.form['contrasena']
     namefile = request.form['nombre']
     private = request.form['Private']
+
+    if private == "true":
+        private = "false"
+    elif private == "false":
+        private = "true"
+
     passmd5 = hashlib.md5(contra.encode()).hexdigest()
     #VALIDAMOS LA CONTRASEÑA
     query = "SELECT id_usuario,correo,contrasena,nombre,url_foto from usuario WHERE id_usuario =\'" + str(user)+"\';"
@@ -252,7 +254,6 @@ def uploadfile():
             response = {"msg":"Password incorrecto","Success":"false"}
             return jsonify(response)
 
-
 @app.route('/api/deletefile/<id>', methods=['DELETE'])
 def deletefile(id):
     content_type = request.headers.get('Content-Type')
@@ -290,6 +291,11 @@ def editfile(id):
         nombre = request.json['nombre']
         newname = request.json['CambioNombre']
         visi = request.json['Private']
+        if visi == "true":
+            visi = "false"
+        elif visi == "false":
+            visi = "true"
+
         user = id
         passmd5 = hashlib.md5(contra.encode()).hexdigest()
         #VALIDAMOS LA CONTRASEÑA
@@ -310,8 +316,6 @@ def editfile(id):
             return jsonify(response)
     else:
         return 'Content-Type not supported!'
-
-
 
 @app.route('/api/allusers', methods=['GET'])
 def allusers():
@@ -343,7 +347,7 @@ def allusers():
         filespublic =[]
 
 
-    response = {"msg":datausu,"Success":"false"}
+    response = {"msg":datausu,"Success":"true"}
     return jsonify(response)
 
 @app.route('/api/addfriend', methods=['POST'])
@@ -396,78 +400,6 @@ def viewfiles(id):
     
     response = {"msg":data, "data":id}
     return jsonify(response)
-
-
-
-@app.route('/')
-def CONNECT_DB():
-
-    ses = Session(aws_access_key_id=app.config['S3_ACCESS_KEY_ID'],
-              aws_secret_access_key=app.config['S3_SECRET_ACCESS_KEY'],
-              region_name=app.config['S3_BUCKET_REGION'])
-
-
-    s3_client = ses.client('s3')
-
-    s3_bucket_name = app.config['S3_BUCKET_NAME']
-    object_name = 'files/rengoku.jpg'
-    
-
-    def file_upload():
-        response = s3_client.generate_presigned_post(
-            s3_bucket_name,
-            object_name,
-            ExpiresIn=3600
-        )
-        pprint(response)
-
-    def file_download():
-        response = s3_client.generate_presigned_url(
-            'get_object',
-            Params={
-                'Bucket': s3_bucket_name,
-                'Key': object_name
-            },
-            ExpiresIn=3600
-        )
-
-        pprint(response)
-
-    file_upload()
-    file_download()
-    response = {'message': 'klfsd'}
-    return jsonify(response)
-
-
-
-
-
-def create_presigned_url(bucket_name,object_name,expiration=3600):
-    s3_client = boto3.client('s3',app.config['S3_BUCKET_REGION'],**credentials)
-    try:
-        response = s3_client.generate_presigned_url('get_object',Params={'Bucket':bucket_name,'Key':object_name},ExpiresIn=expiration)
-        print(response)
-    except ClientError as e :
-        logging.error(e)
-        return None
-    print(response)
-    return response
-
-def create_presigned_post(bucket_name, object_name,
-                          fields=None, conditions=None, expiration=3600):
-    s3_client = boto3.client('s3')
-    try:
-        response = s3_client.generate_presigned_post(bucket_name,
-                                                     object_name,
-                                                     Fields=fields,
-                                                     Conditions=conditions,
-                                                     ExpiresIn=expiration)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # The response contains the presigned URL and required fields
-    return response
 
 
 if __name__ == '__main__':
