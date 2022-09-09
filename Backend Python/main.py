@@ -1,10 +1,14 @@
 
+import json
+from pydoc import resolve
 from flask import Flask,render_template,request,redirect,url_for
 from flask import jsonify
 from flask_cors import CORS
 from config import config
 import boto3
 from boto3.s3.transfer import S3Transfer
+from botocore.exceptions import ClientError
+import logging
 from werkzeug.utils import secure_filename
 from flask_mysqldb import MySQL
 import string
@@ -13,6 +17,8 @@ import os
 import hashlib
 import sys
 from datetime import datetime
+from boto3 import Session
+from pprint import pprint
 
 
 def create_app(enviroment):
@@ -38,7 +44,6 @@ credentials = {
     'aws_secret_access_key': app.config['S3_SECRET_ACCESS_KEY']
     
 }
-## CREAR USUARIO
 @app.route('/api/registro', methods=['POST'])
 def newuser():
     data = request.form
@@ -65,13 +70,37 @@ def newuser():
     file_url = '%s/%s/%s%s' % (client.meta.endpoint_url,app.config['S3_BUCKET_NAME'],keyS3,extension)
     os.remove(upload_path)
 
+
+    ses = Session(aws_access_key_id=app.config['S3_ACCESS_KEY_ID'],
+              aws_secret_access_key=app.config['S3_SECRET_ACCESS_KEY'],
+              region_name=app.config['S3_BUCKET_REGION'])
+
+    s3_client = ses.client('s3')
+
+    s3_bucket_name = app.config['S3_BUCKET_NAME']
+    object_name = keyS3+extension
+
+    def file_download():
+        response = s3_client.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': s3_bucket_name,
+                'Key': object_name
+            },
+            ExpiresIn=3600
+        )
+        return response
+
+    urlfoto = file_download()
+
+
     user = request.form['user']
     email = request.form['email']
     passmd5 = hashlib.md5(data['pass'].encode())
-    urlfoto = file_url 
+    
 
     query = "INSERT INTO usuario (correo, contrasena, nombre, url_foto) values('" + \
-        email  + "', '" + str(passmd5.hexdigest()) + "', '" + user + "', '" + urlfoto + "')"
+        email  + "', '" + str(passmd5.hexdigest()) + "', '" + user + "', '" + str(urlfoto) + "')"
     cur = mysql.connection.cursor()
     cur.execute(query)
     try:
@@ -135,10 +164,10 @@ def login():
 
                 data['filesprivate']=filesprivate
                 data['filespublic']=filespublic
-                response = {"data":data,"msg":"Bienvenido","Success":"false"}
+                response = {"data":data,"msg":"Bienvenido","valid":"true"}
                 return jsonify(response)
             else:
-                response = {"data":data,"msg":"Credenciales incorrectas","Success":"false"}
+                response = {"data":data,"msg":"Credenciales incorrectas","valid":"false"}
                 return jsonify(response)
 
     else:
@@ -148,7 +177,6 @@ def login():
 @app.route('/api/uploadfile', methods=['POST'])
 def uploadfile():
     data = request.form
-
     user = request.form['user']
     contra = request.form['contrasena']
     namefile = request.form['nombre']
@@ -175,7 +203,6 @@ def uploadfile():
             f.save(upload_path)
 
             #Segundo se envía a S3
-
             client = boto3.client('s3',app.config['S3_BUCKET_REGION'],**credentials)
             transfer = S3Transfer(client)
             transfer.upload_file(upload_path,app.config['S3_BUCKET_NAME'],keyS3+extension)
@@ -183,8 +210,31 @@ def uploadfile():
             file_url = '%s/%s/%s%s' % (client.meta.endpoint_url,app.config['S3_BUCKET_NAME'],keyS3,extension)
             os.remove(upload_path)
 
+
+            ses = Session(aws_access_key_id=app.config['S3_ACCESS_KEY_ID'],
+              aws_secret_access_key=app.config['S3_SECRET_ACCESS_KEY'],
+              region_name=app.config['S3_BUCKET_REGION'])
+
+            s3_client = ses.client('s3')
+
+            s3_bucket_name = app.config['S3_BUCKET_NAME']
+            object_name = keyS3+extension
+
+            def file_download():
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': s3_bucket_name,
+                        'Key': object_name
+                    },
+                    ExpiresIn=3600
+                )
+                return response
+            
+            linksubido = file_download()
+
             query = "INSERT INTO archivo (id_usuario , nombre, fecha, url_archivo, visibilidad) VALUES('" + \
-            user + "', '" + namefile + "', '" + str(datetime.now()) + "', '" + file_url + "', '" + private + "')"
+            user + "', '" + namefile + "', '" + str(datetime.now()) + "', '" + str(linksubido) + "', '" + private + "')"
             cur = mysql.connection.cursor()
             cur.execute(query)
 
@@ -203,40 +253,221 @@ def uploadfile():
             return jsonify(response)
 
 
-@app.route('/api/deletefile')
-def deletefile():
+@app.route('/api/deletefile/<id>', methods=['DELETE'])
+def deletefile(id):
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        email = request.json['contrasena']
-        contra = request.json['NombreArchivo']
-        user = request.json['user']
+        print(request.json)
+        contra = request.json['contrasena']
+        nombre = request.json['NombreArchivo']
+        user = id
         passmd5 = hashlib.md5(contra.encode()).hexdigest()
-
-        query = "SELECT id_usuario,correo,contrasena,nombre,url_foto from usuario WHERE correo =\'" + str(email)+"\';"
+        #VALIDAMOS LA CONTRASEÑA
+        query = "SELECT contrasena from usuario WHERE id_usuario =\'" + str(user)+"\';"
         cur = mysql.connection.cursor()
         cur.execute(query)
         resultado = cur.fetchone()
-
+        if (passmd5 == resultado[0]):
+            query ="DELETE FROM archivo WHERE id_usuario="+ user+ " AND nombre='"+ nombre +"';"
+            print(query)
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            mysql.connection.commit()
+            response = {"msg":"Archivo eliminado ","valid":"true"}
+            return jsonify(response)
+        else:
+            response = {"msg":"Password incorrecto","valid":"false"}
+            return jsonify(response)
     else:
         return 'Content-Type not supported!'
 
+@app.route('/api/editfile/<id>', methods=['PUT'])
+def editfile(id):
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        print(request.json)
+        contra = request.json['contrasena']
+        nombre = request.json['nombre']
+        newname = request.json['CambioNombre']
+        visi = request.json['Private']
+        user = id
+        passmd5 = hashlib.md5(contra.encode()).hexdigest()
+        #VALIDAMOS LA CONTRASEÑA
+        query = "SELECT contrasena from usuario WHERE id_usuario =\'" + str(user)+"\';"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        resultado = cur.fetchone()
+        if (passmd5 == resultado[0]):
+            query ="UPDATE archivo SET nombre='"+str(newname)+"', visibilidad='"+str(visi)+"' WHERE nombre='"+str(nombre)+"';"
+            print(query)
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            mysql.connection.commit()
+            response = {"msg":"Archivo modificado exitosamente ","valid":"true"}
+            return jsonify(response)
+        else:
+            response = {"msg":"Password incorrecto","valid":"false"}
+            return jsonify(response)
+    else:
+        return 'Content-Type not supported!'
+
+
+
 @app.route('/api/allusers', methods=['GET'])
 def allusers():
-    query = "SELECT u.id_usuario, u.nombre,u.url_foto, a.nombre from usuario u JOIN archivo a ON u.id_usuario = a.id_usuario WHERE a.visibilidad = 'true' GROUP BY a.id_archivo;"
+    datausers={}
+    datapublic={}
+    datausu=[]
+    filespublic =[]
+    # query = "SELECT u.id_usuario, u.nombre,u.url_foto, a.nombre from usuario u JOIN archivo a ON u.id_usuario = a.id_usuario WHERE a.visibilidad = 'true' GROUP BY a.id_archivo;"
+    query = "SELECT * FROM usuario ;"
     cur = mysql.connection.cursor()
     cur.execute(query)
     resultado = cur.fetchall()
-    response = {"msg":resultado,"Success":"false"}
+    for x in resultado:
+        datausers['idUser']=x[0]
+        datausers['user']=x[3]
+        datausers['foto']=x[4]
+        query = "SELECT * from archivo WHERE id_usuario = '"+str(x[0])+"' AND visibilidad ='true';"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        resultado2 = cur.fetchall()
+        for x in resultado2:
+            datapublic['name']=x[2]
+            datapublic['path']=x[4]
+            filespublic.append(datapublic)
+        datausers['filespublic'] = len(filespublic)
+        datausu.append(datausers)
+        datausers={}
+        datapublic={}
+        filespublic =[]
+
+
+    response = {"msg":datausu,"Success":"false"}
     return jsonify(response)
 
-      
+@app.route('/api/addfriend', methods=['POST'])
+def addfriend():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        user = request.json['user']
+        friend = request.json['amigo']
+
+        query = "INSERT INTO solicitud(id_usuario_envia, id_usuario_acepta) VALUES (" +str(user) + ","+ str(friend)+");"
+        cur = mysql.connection.cursor()
+    
+        try:
+            cur.execute(query)
+            mysql.connection.commit()
+            response = { "msg": 'Has agregado un amigo con exito', "valid":"true"}
+            cur.close()
+            return jsonify(response)
+        except:
+            response = {"msg": 'Hubo un error al agregar amigo',"valid":"false"}
+            return jsonify(response)
+    else:
+        response = {"msg":"Error fuerte","Success":"false"}
+        return jsonify(response)
+
+@app.route('/api/viewfiles/<id>', methods=['GET'])
+def viewfiles(id):
+    data = []
+    files = {}
+    query = "SELECT id_usuario_envia, id_usuario_acepta from solicitud WHERE id_usuario_envia="+ id+";"
+    cur = mysql.connection.cursor()
+    cur.execute(query)
+    resultado = cur.fetchall()
+    
+
+    for x in resultado:
+        print(x[1])
+        query = "SELECT  u.nombre, a.fecha,a.nombre,a.url_archivo  from archivo a JOIN usuario u  ON a.id_usuario = u.id_usuario WHERE a.id_usuario ="+ str(x[1])+"  AND a.visibilidad ='true';"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        resultado2 = cur.fetchall()
+        for z in resultado2:
+            files['propietario'] = z[0]
+            files['archivo'] = z[3]
+            files['fecha'] = z[1]
+            files['nombre'] = z[2]
+            data.append(files)
+            files = {}
+        
+    
+    response = {"msg":data, "data":id}
+    return jsonify(response)
+
 
 
 @app.route('/')
 def CONNECT_DB():
-    CS = mysql.connection.cursor()
-    response = {'message': "Hola personitas"}
+
+    ses = Session(aws_access_key_id=app.config['S3_ACCESS_KEY_ID'],
+              aws_secret_access_key=app.config['S3_SECRET_ACCESS_KEY'],
+              region_name=app.config['S3_BUCKET_REGION'])
+
+
+    s3_client = ses.client('s3')
+
+    s3_bucket_name = app.config['S3_BUCKET_NAME']
+    object_name = 'files/rengoku.jpg'
+    
+
+    def file_upload():
+        response = s3_client.generate_presigned_post(
+            s3_bucket_name,
+            object_name,
+            ExpiresIn=3600
+        )
+        pprint(response)
+
+    def file_download():
+        response = s3_client.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': s3_bucket_name,
+                'Key': object_name
+            },
+            ExpiresIn=3600
+        )
+
+        pprint(response)
+
+    file_upload()
+    file_download()
+    response = {'message': 'klfsd'}
     return jsonify(response)
+
+
+
+
+
+def create_presigned_url(bucket_name,object_name,expiration=3600):
+    s3_client = boto3.client('s3',app.config['S3_BUCKET_REGION'],**credentials)
+    try:
+        response = s3_client.generate_presigned_url('get_object',Params={'Bucket':bucket_name,'Key':object_name},ExpiresIn=expiration)
+        print(response)
+    except ClientError as e :
+        logging.error(e)
+        return None
+    print(response)
+    return response
+
+def create_presigned_post(bucket_name, object_name,
+                          fields=None, conditions=None, expiration=3600):
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.generate_presigned_post(bucket_name,
+                                                     object_name,
+                                                     Fields=fields,
+                                                     Conditions=conditions,
+                                                     ExpiresIn=expiration)
+    except ClientError as e:
+        logging.error(e)
+        return None
+
+    # The response contains the presigned URL and required fields
+    return response
 
 
 if __name__ == '__main__':
