@@ -33,6 +33,7 @@ const dbInitialization = async () => {
   
 dbInitialization();
 
+
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: './uploads'
@@ -55,6 +56,10 @@ app.post('/files', async (req,res)  => {
     console.log(req.body)
     const result = await uploadfile(req.files.file)
     res.json({ result })
+})
+
+app.get('/', async (req,res)  => {
+  res.send('Web App with Javascript NodeJS!')
 })
 
 //routes
