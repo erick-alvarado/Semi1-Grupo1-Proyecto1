@@ -21,7 +21,7 @@ app.set('port', process.env.PORT)
 app.use(cors())
 app.use(express.json())
 
-// Conection DB
+// Conection DB 
 const dbInitialization = async () => {
     try {
       await db.authenticate();
