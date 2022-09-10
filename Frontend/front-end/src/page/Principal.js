@@ -2,35 +2,93 @@ import React from 'react';
 import { Nav } from '../page/Nav';
 export const Principal = () => {
   return (
-    <div className="principal">
-      <Nav />
-      <div className='public_file'>
-        <div className='public_file_title'>
-          <h3>ARCHIVOS PUBLICOS</h3>
-          <div>
-            {
-	            window.public.map((index) =>  
-              
-               <img src={index.path} title = {index.name}
-      
-	            alt="Images" height="250" width="250" style={{border:"solid",backgroundColor:'gray'}}/>)
-            }
-        </div>
-        </div>
-      </div>
-      <div className='private_file'>
-        <div className='private_file_title'>
-          <h3>ARCHIVOS PRIVADOS</h3>
-          <div>
-            {
-	            window.private.map((index) =>
-               <img src={index.path} title = {index.name}
-	            alt="Images" height="250" width="250" style={{border:"solid",backgroundColor:'gray'}}/>)
-            }
-        </div>
-        </div>
-      </div>
+    
+
+<div>
+    <div class="split left">
+      <Nav/>
     </div>
+    <div class="split right">
+
+    <div className={"container"}>
+            <h3>ARCHIVOS PUBLICOS</h3>
+            {
+              window.public.map((index)=>{
+
+                if ((index.path).includes(".jpg") == true){
+                  return(
+                  <div className={"item"}>
+                  <img className={"item-img"} src={index.path} title = {index.name} alt="" />
+                  <div className={"item-text"}>
+                      <h3>{index.name}</h3>
+                    
+                  </div>
+                  </div>
+                  )
+                }else if ((index.path).includes(".pdf") == true){
+
+                  return(
+                    <div className={"item"}>
+                    <img className={"item-img"} src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png" title = {index.name} alt="" />
+                    <div className={"item-text"}>
+                        <h3>{index.name}</h3>
+                        
+                    </div>
+                    </div>
+                    )
+                
+                }
+               
+              })
+
+            }  
+
+  </div>
+  <div className={"container"}>
+            <h3>ARCHIVOS PRIVADOS</h3>
+            {
+              window.private.map((index)=>{
+
+                if ((index.path).includes(".jpg")== true){
+                  return(
+                  <div className={"item"}>
+                  <img className={"item-img"} src={index.path} title = {index.name} alt="" />
+                  <div className={"item-text"}>
+                      <h3>{index.name}</h3>
+                    
+                  </div>
+                  </div>
+                  )
+                }else if ((index.path).includes(".pdf")== true){
+
+                  return(
+                    <div className={"item"}>
+                    <img className={"item-img"} src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png" title = {index.name} alt="" />
+                    <div className={"item-text"}>
+                        <h3>{index.name}</h3>
+                        
+                    </div>
+                    </div>
+                    )
+                
+                }
+               
+              })
+
+            }  
+
+  </div>
+
+
+
+
+
+
+
+    </div>
+    
+    
+  </div>
     
   )
 }
