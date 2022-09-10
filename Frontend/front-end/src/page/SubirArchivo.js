@@ -3,6 +3,7 @@ import { Nav} from '../page/Nav';
 import user from "../assets/user.png";
 
 export const SubirArchivo = () => {
+  
   return (
     <form class="formulario_SA">
       <Nav />

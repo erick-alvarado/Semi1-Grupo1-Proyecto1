@@ -8,8 +8,8 @@ export const Nav = () => {
     <div>
         <div className="container_perfil_nav">
             <div className='imag_perfil'>
-                <img src={user} alt="Avatar" className="avatar_perfil"/>
-                <p className='nom_usu'>Nombre</p>
+                <img src={window.foto} alt="Avatar" className="avatar_perfil"/>
+                <p className='nom_usu'>{window.nombre}</p>
             </div>
             <div className='nav_perfil'>
                 <ul>

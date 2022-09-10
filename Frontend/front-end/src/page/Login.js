@@ -1,19 +1,46 @@
 import '../css/Login.css';
 import React, {useState} from "react";
 import user from "../assets/user.png";
+import { useForm } from "react-hook-form";
+import { Principal } from './Principal';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const navigateToContacts = () => {
+    navigate('/Principal');
+    };
     const [miLogin, setMiLogin] = useState("false");
     const [usu, setUsu] = useState("");
     const [pas, setPas] = useState("");
-    
+
+    const {  handleSubmit } = useForm();
+
+    const onSubmit = async (data) => {
+        console.log(JSON.stringify({ email: usu, pass: pas }));
+        const res = await fetch("http://3.83.13.128:8080/api/login", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: usu, pass: pas }),
+        }).then((res) => res.json());
+        window.user = res.data.user;
+        window.foto = res.data.foto;
+        window.nombre = res.data.name;
+        window.public = res.data.filespublic;
+        window.private = res.data.filesprivate;
+        console.log(res.valid);
+        if(res.valid){
+            navigateToContacts();
+        }
+
+    };
     return ( 
-    <form class="formulario">
-        <div class="imgcontainer">
-            <img src={user} alt="Avatar" class="avatar"/>
+    <form className="formulario" onSubmit={handleSubmit(onSubmit)}>
+        <div className="imgcontainer">
+            <img src={user} alt="Avatar" className="avatar"/>
         </div>
-        <div class="container">
+        <div className="container">
             <label for="uname" style={{color:"white"}}><b>USERNAME</b></label>
             <input type="text" placeholder="Enter Username" name="uname" onChange={ (e)=>setUsu(e.target.value) } />
             <label for="psw" style={{color:"white"}}><b>PASSWORD</b></label>
@@ -23,6 +50,7 @@ export const Login = () => {
         <div class="container">
             <a href="/Registrar" style={{color:"white"}}>¿Aun no te has registrado?</a>    
         </div>
+        <h1></h1>
     </form>
     
     );
