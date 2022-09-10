@@ -21,6 +21,7 @@ from boto3 import Session
 from pprint import pprint
 
 
+
 def create_app(enviroment):
     
     app = Flask(__name__)
@@ -139,6 +140,7 @@ def login():
             if (passmd5 == resultado[2]):
                 data['foto']=resultado[4]
                 data['user']=resultado[0]
+                data['name']=resultado[3]
                 query = "SELECT * from archivo WHERE id_usuario = '"+str(resultado[0])+"' AND visibilidad ='true';"
                 cur = mysql.connection.cursor()
                 cur.execute(query)
