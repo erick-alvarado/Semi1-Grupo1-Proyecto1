@@ -87,7 +87,7 @@ def newuser():
                 'Bucket': s3_bucket_name,
                 'Key': object_name
             },
-            ExpiresIn=3600
+            ExpiresIn=432000
         )
         return response
 
@@ -402,5 +402,10 @@ def viewfiles(id):
     return jsonify(response)
 
 
+
+@app.route('/', methods=['GET'])
+def main():
+    response = {"msg":"hola Erick", "data":"true"}
+    return jsonify(response)
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8080)
