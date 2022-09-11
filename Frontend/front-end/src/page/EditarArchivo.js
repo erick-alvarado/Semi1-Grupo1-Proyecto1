@@ -63,7 +63,7 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
       <br/>
       <br/>
       <Nav />
-      <select onChange={ (event) => setValue( event.target.value ) }>
+      <select onChange={ (event) => setValue( event.target.value ) } className="bt_edi">
       <option value="0">--Selecciona tu archivo</option>
           {
               window.public.map((index)=>{
@@ -83,12 +83,17 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
       <br/>
       <br/>
       <label htmlFor="psw" style={{color:"Black"}}><b>SI DESEA CAMBIAR EL NOMBRE ESCRIBA ABAJO DE LO CONTRARIO DEJE EN BLANCO</b></label>
+      <div className="text_edit_file">
       <input type="text" placeholder="Enter Name File" name="psw" onChange={ (e)=>setFile(e.target.value) }></input>
+      </div>
+      <br/><br/><br/>  
       <br/>
       <label htmlFor="psw" style={{color:"Black"}}><b>VISIBILIDAD</b></label>
       <br/>
       <br/>
-       <FormGroup>
+      <div className="radio_edit">
+
+      <FormGroup>
        <label style={{color:"Black"}}><b>Privado</b></label>
         <input
           id="radio1"
@@ -108,11 +113,19 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
           onChange={cambioRadio}
           />
        </FormGroup>
+      </div>
+
        <br/>
+       <br/>
+       <br/>
+        <br/>
          
       <label htmlFor="psw" style={{color:"Black"}}><b>PASSWORD</b></label>
+      <div className="text_edit_pass">
+        
       <input type="password" placeholder="Enter Password" name="psw" onChange={ (e)=>setPas(e.target.value) }></input>
-      <button type="submit">Editar</button>
+      </div>
+      <button type="submit" className="bt_edi_acep">Editar</button>
       </form>
       </div>
 

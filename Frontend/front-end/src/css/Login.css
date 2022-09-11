@@ -597,3 +597,73 @@ div.edit_contener{
       grid-template-columns: repeat(4,1fr);
   }
 }
+.bt_edi{
+  background-color: #04AA6D;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 25%;
+  position: fixed;
+  top: 27%;
+  left: 48%;
+}
+.bt_edi_acep{
+  background-color: #04AA6D;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 25%;
+  position: fixed;
+  top: 81%;
+  left: 48%;
+}
+.text_edit_file{
+  width: 35%;
+  position: fixed;
+  text-align: center;
+  top: 37%;
+  left: 43%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 50px;
+}
+.text_edit_pass{
+  width: 35%;
+  position: fixed;
+  text-align: center;
+  top: 68%;
+  left: 43%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 50px;
+}
+.edit_contener_text{
+  width: 60%;
+  height: 80%;
+  background-color: #ccc;
+  position: fixed;
+  top: 10%;
+  left: 30%;
+  background-color: rgba (9, 10, 10, 0.4);
+  border-radius: 50px;
+
+
+}
+.radio_edit{
+  background-color: orange;
+  width: 10%;
+  height: 10%;
+  position: fixed;
+  border-radius: 460px;
+  top: 53%;
+  left: 55%;
+  text-align: center;
+}
