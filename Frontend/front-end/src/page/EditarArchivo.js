@@ -62,6 +62,7 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
 
   return (
     <div className='edit_contener'>
+      <div className="edit_contener_text">
       <h1 >Editar archivo</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="psw" style={{color:"Black"}}><b>SELECCIONA EL ARCHIVO A MODIFICAR</b></label>
@@ -119,6 +120,8 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
       <input type="password" placeholder="Enter Password" name="psw" onChange={ (e)=>setPas(e.target.value) }></input>
       <button type="submit">Editar</button>
       </form>
+      </div>
+
     </div>
   )
 }
