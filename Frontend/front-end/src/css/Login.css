@@ -474,6 +474,7 @@ div.edit_contener{
   top: 15%;
   left: 29%;
   border-radius: 70px;
+  text-align: center;
 }
 
 .text_label_ELA{
@@ -484,6 +485,7 @@ div.edit_contener{
   font-size: 20px;
   font-weight: bold;
   color: #fff;
+  text-align: center;
 }
 .button_ELA{
   background-color: #04AA6D;

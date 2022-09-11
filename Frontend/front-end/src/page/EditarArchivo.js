@@ -33,11 +33,7 @@ const onSubmit = async(data)=>{
     headers:{'Content-Type': 'application/json'},
     body:JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }),
   }).then((res) => res.json());
-  setFile("")
-  setPas("")
-  setValue("")
-  setTipo(0)
-  
+
   if(res.valid){
     
     
@@ -52,8 +48,6 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
         window.foto = res2.data.foto;
         window.nombre = res2.data.name;
         window.public = res2.data.filespublic;
-        window.private = res2.data.filesprivate;
-
 
 
 }
