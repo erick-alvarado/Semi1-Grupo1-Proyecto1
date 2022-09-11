@@ -562,3 +562,29 @@ div.edit_contener{
 
 
 }
+
+.container3{
+  width: 75%;
+  max-width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  grid-gap: 30px;
+  background-color: bisque;
+
+}
+
+@media screen and (min-width: 590px){
+  .container3{
+      grid-template-columns: repeat(1,1fr);
+  }
+}
+
+@media screen and (min-width: 960px){
+  .container3{
+      grid-template-columns: repeat(3,1fr);
+  }
+}
