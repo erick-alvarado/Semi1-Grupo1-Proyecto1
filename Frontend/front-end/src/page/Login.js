@@ -40,6 +40,14 @@ export const Login = () => {
 
             window.users = res2.msg
 
+            const res3 = await fetch("http://3.83.13.128:8080/api/viewfiles/"+window.user, {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' },
+        }).then((res3) => res3.json());
+
+
+            window.filefriends = res3.msg
+         
             navigateToContacts();
         }else{
             alert(JSON.stringify(`${res.msg}`));
