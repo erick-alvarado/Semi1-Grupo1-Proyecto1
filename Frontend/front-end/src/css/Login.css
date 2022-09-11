@@ -376,8 +376,12 @@ div.edit_contener{
 }
 .item{
   width: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
   cursor:pointer;
   box-shadow: 0 0 3px 0 rgba(0,0,0,.5);
+  background-color: 	#808080;
   transition: all 0.3s ease-in-out;
   
 }
@@ -387,8 +391,9 @@ div.edit_contener{
 }
 
 .item-img{
+  margin-top: 10px;
   max-width: 40%;
-  display: block;
+
 }
 
 @media screen and (min-width: 590px){
@@ -564,17 +569,21 @@ div.edit_contener{
 }
 
 .container3{
-  width: 75%;
+  width: 60%;
   max-width: auto;
+  max-height: 50%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 3em;
   margin-bottom: 3em;
   display: grid;
-  grid-template-columns: repeat(1,1fr);
   grid-gap: 30px;
-  background-color: bisque;
-
+  background-color: #ccc;
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  border-radius: 20px;
+  overflow: scroll;
 }
 
 @media screen and (min-width: 590px){
@@ -585,6 +594,6 @@ div.edit_contener{
 
 @media screen and (min-width: 960px){
   .container3{
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(4,1fr);
   }
 }
