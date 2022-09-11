@@ -33,12 +33,12 @@ export const EliminarArchivo = () => {
   }
   return (
     <div>
-      <Nav/>
       <div className="container_ELA">
+        <Nav/>
         <div className="conteiner_ela_text">
         <h1 >Eliminar archivo</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-        <select onChange={ (event) => setValue( event.target.value ) }>
+        <select onChange={ (event) => setValue( event.target.value ) } className="bt_edi_elim">
         <option value="0">--Selecciona tu archivo</option>
           {
               window.public.map((index)=>{

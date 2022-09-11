@@ -8,9 +8,9 @@ export const AgregarAmigos = () => {
 
 
   return (
-    <div>
+    <div className='general_agre_fre'>
     
-      <div class="split left">
+    <div class="split left">
       <Nav/>
     </div>
     <div class="split right">
@@ -34,7 +34,7 @@ export const AgregarAmigos = () => {
                     <div className={"item-text"}>
                         <h4>{index.user}</h4>
                         <h5>{index.filespublic} archivos publicos </h5>
-                        <button  onClick={()=>veamos(index.idUser)}  >Agregar Amigo</button>
+                        <button  onClick={()=>veamos(index.idUser)} className="bt_agre_fred"  >Agregar Amigo</button>
                     </div>
                     </div>
                     )

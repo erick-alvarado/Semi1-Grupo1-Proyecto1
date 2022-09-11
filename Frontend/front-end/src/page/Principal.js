@@ -4,7 +4,7 @@ export const Principal = () => {
   return (
     
 
-<div>
+<div className='general_agre_fre'>
     <div class="split left">
       <Nav/>
     </div>

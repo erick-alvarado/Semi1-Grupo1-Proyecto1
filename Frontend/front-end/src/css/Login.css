@@ -221,6 +221,7 @@ div.edit_contener{
   margin: auto;
   position: fixed;
   border: #ccc solid 2px;
+  text-align: center;
   top: 8%;
   left: 25%;
 }
@@ -623,6 +624,20 @@ div.edit_contener{
   top: 81%;
   left: 48%;
 }
+.bt_edi_elim{
+  background-color: #04AA6D;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 25%;
+  position: fixed;
+  top: 42%;
+  left: 65%;
+}
 .text_edit_file{
   width: 35%;
   position: fixed;
@@ -666,4 +681,13 @@ div.edit_contener{
   top: 53%;
   left: 55%;
   text-align: center;
+}
+.general_agre_fre{
+  text-align: center;
+}
+.bt_agre_fred{
+  background-color: #04AA6D;
+  border-radius: 25px;
+  width: 70%;
+  height: 10%;
 }
