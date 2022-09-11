@@ -22,7 +22,6 @@ export const RouterPrincipal = () => {
             <Route path="/EditarArchivo" element={<EditarArchivo />} />
             <Route path="/EliminarArchivo" element={<EliminarArchivo />} />
             <Route path="/AgregarAmigos" element={<AgregarAmigos />} />
-            <Route path="/ViewArchivos" element={<ViewArchivos />} />
         </Routes>
     </BrowserRouter>
   )

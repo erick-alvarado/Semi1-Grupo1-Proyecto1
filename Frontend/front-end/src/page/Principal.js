@@ -10,7 +10,7 @@ export const Principal = () => {
     </div>
     <div class="split right">
 
-    <div className={"container"}>
+    <div className={"container2"}>
             <h3>ARCHIVOS PUBLICOS</h3>
             {
               window.public.map((index)=>{
@@ -44,7 +44,7 @@ export const Principal = () => {
             }  
 
   </div>
-  <div className={"container"}>
+  <div className={"container2"}>
             <h3>ARCHIVOS PRIVADOS</h3>
             {
               window.private.map((index)=>{

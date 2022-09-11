@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 export const Nav = () => {
   return (
-    <div>
         <div className="container_perfil_nav">
             <div className='imag_perfil'>
                 <img src={window.foto} alt="Avatar" className="avatar_perfil"/>
@@ -26,11 +25,10 @@ export const Nav = () => {
                         <NavLink to="/AgregarAmigos">Agregar Amigo</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/viewArchivos">Ver Archivos</NavLink>
+                        <NavLink to="/Principal">Ver Archivos</NavLink>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
   )
 }

@@ -25,11 +25,11 @@ export const Registrar = () => {
 };
   return (
     <form className="formulario_reg" onSubmit={handleSubmit(onSubmit)}>
-        <div className="imgcontainer_reg">
+      <div className="imgcontainer_reg">
             <img src={user} alt="Avatar" className="avatar"/>
-            <div>
-            <input type="file" {...register("file")} />
-      <img src={img} alt="" />
+            <div >
+              <input type="file" {...register("file")} className="file-select" />
+            <img src={img} alt="" />
     </div>
 
         </div>
