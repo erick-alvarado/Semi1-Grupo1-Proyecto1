@@ -7,9 +7,10 @@ export const AgregarAmigos = () => {
     <div>
       <Nav/>
       <div className="container_AA">
-      <label for="psw" style={{color:"white"}}><b>PASSWORD</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" onChange={ (e)=>setPas(e.target.value) }></input>
-        
+      <div className='AA_text'>
+      <label htmlFor="uname" style={{color:"BLACK" } }><b>USUARIO</b></label>
+      <input type="text" placeholder="Ingres el  Username" name="uname" onChange={ (e)=>setPas(e.target.value)  }></input>
+      </div>
       </div>
     </div>
   )

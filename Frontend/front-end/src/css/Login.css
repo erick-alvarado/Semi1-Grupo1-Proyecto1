@@ -224,14 +224,23 @@ div.edit_contener{
   left: 25%;
 }
 .container_AA{
-  width: 930px;
-  height: 495px;
+  width: 72%;
+  height: 84%;
   background-color: antiquewhite;
   margin: auto;
   position: fixed;
   border: #ccc solid 2px;
-  top: 50px;
-  left: 300px;
+  top: 8%;
+  left: 25%;
+  border-radius: 30px;
+}
+.AA_text{
+  width: 60%;
+  height: 60%;
+  position: fixed;
+  text-align: center;
+  top: 13%;
+  left: 30%;
 }
 .container_VA{
   width: 930px;
@@ -434,4 +443,39 @@ div.edit_contener{
 
 #src-file2::before {
   content: 'Seleccionar Archivo 2';
+}
+
+.conteiner_ela_text{
+  width: 64%;
+  height: 70%;
+  background-color: #ccc;
+  margin: auto;
+  position: fixed;
+  border: #ccc solid 2px;
+  top: 15%;
+  left: 29%;
+  border-radius: 70px;
+}
+
+.text_label_ELA{
+  margin: auto;
+  position: fixed;
+  top: 30%;
+  left: 35%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+.button_ELA{
+  background-color: #04AA6D;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 25%;
+  position: fixed;
+  top: 50%;
+  left: 35%;
 }
