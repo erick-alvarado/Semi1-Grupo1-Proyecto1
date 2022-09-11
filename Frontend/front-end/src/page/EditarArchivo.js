@@ -33,11 +33,7 @@ const onSubmit = async(data)=>{
     headers:{'Content-Type': 'application/json'},
     body:JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }),
   }).then((res) => res.json());
-  setFile("")
-  setPas("")
-  setValue("")
-  setTipo(0)
-  
+
   if(res.valid){
     
     
@@ -52,8 +48,6 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
         window.foto = res2.data.foto;
         window.nombre = res2.data.name;
         window.public = res2.data.filespublic;
-        window.private = res2.data.filesprivate;
-
 
 
 }
@@ -62,6 +56,7 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
 
   return (
     <div className='edit_contener'>
+      <div className="edit_contener_text">
       <h1 >Editar archivo</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="psw" style={{color:"Black"}}><b>SELECCIONA EL ARCHIVO A MODIFICAR</b></label>
@@ -119,6 +114,8 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
       <input type="password" placeholder="Enter Password" name="psw" onChange={ (e)=>setPas(e.target.value) }></input>
       <button type="submit">Editar</button>
       </form>
+      </div>
+
     </div>
   )
 }

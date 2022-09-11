@@ -9,6 +9,7 @@ window.public = [];
 window.private = [];
 window.email = ''
 window.passs=''
+window.users=[]
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

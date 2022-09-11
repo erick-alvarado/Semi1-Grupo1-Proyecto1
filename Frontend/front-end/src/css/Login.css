@@ -162,7 +162,7 @@ ul {
 li a {
   display: block;
   color: #000;
-  padding: 5% 0% 2% 10%;
+  padding: 4% 0% 2% 10%;
   background-color: darkturquoise;
   text-decoration: none;
 }
@@ -205,13 +205,14 @@ img.avatar_perfil {
 div.edit_contener{
   width: 70%;
   height: 85%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
   background-color: antiquewhite;
   margin: auto;
   position: fixed;
   border: #ccc solid 2px;
   top: 8%;
   left: 25%;
-  text-align: center;
 }
 .container_ELA{
   width: 71%;
@@ -270,10 +271,19 @@ div.edit_contener{
   border: #ccc solid 2px;
   top: 8%;
   left: 25%;
+  border-radius: 20px;
 }
 .container_text{
-  width: 35%;
-  margin: 1%;
+  width: 25%;
+  height: 84%;
+  position: fixed;
+  top: 15%;
+  left: 27%;
+  text-align: center;
+}
+.formulario_SA{
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .container_imgSA{
   width: 40%;
@@ -282,9 +292,10 @@ div.edit_contener{
   margin: auto;
   position: fixed;
   border: #ccc solid 2px;
-  top: 70px;
+  top: 10%;
   left: 55%;
-  right: 50%;
+  border-radius: 50px;
+
 }
 .avatar_SA{
   width: 90%;
@@ -292,11 +303,12 @@ div.edit_contener{
   margin: auto;
 }
 .imgcontainer_SA{
+  width: 15%;
   text-align: center;
   margin: auto;
   position: fixed;
-  top: 18%;
-  left: 67%;
+  top: 20%;
+  left: 68%;
 }
 .bt_SA{
   background-color: #04AA6D;
@@ -308,7 +320,7 @@ div.edit_contener{
   border-radius: 10px;
   width: 25%;
   position: fixed;
-  top: 350px;
+  top: 56%;
   right: 11%;
 }
 .bt_SA:hover{
@@ -324,7 +336,7 @@ div.edit_contener{
   width: 25%;
   flex-wrap: wrap;
   position: fixed;
-  top: 400px;
+  top: 65%;
   right: 11%;
 }
 .bt_aceptarSA:hover{
@@ -474,6 +486,7 @@ div.edit_contener{
   top: 15%;
   left: 29%;
   border-radius: 70px;
+  text-align: center;
 }
 
 .text_label_ELA{
@@ -484,6 +497,7 @@ div.edit_contener{
   font-size: 20px;
   font-weight: bold;
   color: #fff;
+  text-align: center;
 }
 .button_ELA{
   background-color: #04AA6D;
@@ -535,5 +549,42 @@ div.edit_contener{
 @media screen and (min-width: 960px){
   .container_AA_view{
       grid-template-columns: repeat(7,1fr);
+  }
+}
+.edit_contener_text{
+  width: 60%;
+  height: 80%;
+  background-color: #ccc;
+  position: fixed;
+  top: 10%;
+  left: 30%;
+  background-color: rgba (9, 10, 10, 0.4);
+
+
+}
+
+.container3{
+  width: 75%;
+  max-width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  grid-gap: 30px;
+  background-color: bisque;
+
+}
+
+@media screen and (min-width: 590px){
+  .container3{
+      grid-template-columns: repeat(1,1fr);
+  }
+}
+
+@media screen and (min-width: 960px){
+  .container3{
+      grid-template-columns: repeat(3,1fr);
   }
 }

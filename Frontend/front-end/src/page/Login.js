@@ -18,22 +18,31 @@ export const Login = () => {
     const {  handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(JSON.stringify({ email: usu, pass: pas }));
         const res = await fetch("http://3.83.13.128:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: usu, pass: pas }),
         }).then((res) => res.json());
-        window.user = res.data.user;
-        window.foto = res.data.foto;
-        window.nombre = res.data.name;
-        window.public = res.data.filespublic;
-        window.private = res.data.filesprivate;
-        window.email = usu
-        window.passs=pas
-        console.log(res.valid);
-        if(res.valid){
+        if(res.valid == "true"){
+            window.user = res.data.user;
+            window.foto = res.data.foto;
+            window.nombre = res.data.name;
+            window.public = res.data.filespublic;
+            window.private = res.data.filesprivate;
+            window.email = usu
+            window.passs=pas
+        
+
+            const res2 = await fetch("http://3.83.13.128:8080/api/allusers", {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' },
+        }).then((res2) => res2.json());
+
+            window.users = res2.msg
+
             navigateToContacts();
+        }else{
+            alert(JSON.stringify(`${res.msg}`));
         }
 
     };

@@ -54,9 +54,9 @@ export const SubirArchivo = () => {
         <div className='container_text'>
           <label htmlFor="uname" style={{color:"Black"}}><b>NOMBRE DEL ARCHIVO</b></label>
           <input type="text" placeholder="Ingrese el nombre del archivo" name="uname" onChange={ (e)=>setfilename(e.target.value) }  />
+          <br></br>
           <label htmlFor="uname" style={{color:"Black"}}><b>ARCHIVO SELECIONADO</b></label>
           <input type="text" placeholder="" name="uname" />
-          <br></br>
           <br></br>
           <h3>TIPO DE ARCHIVO</h3>
           <p>
