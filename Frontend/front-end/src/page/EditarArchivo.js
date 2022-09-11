@@ -21,11 +21,7 @@ export const EditarArchivo = () => {
 
 
 const onSubmit = async(data)=>{
-  console.log(pas);
-  console.log(value);
-  console.log(tipo);
-  console.log(file);
-  console.log(window.user)
+  
   if(value == ""){
     file = value
   }
@@ -46,6 +42,17 @@ const onSubmit = async(data)=>{
     
     
 }
+
+const res2 = await fetch("http://3.83.13.128:8080/api/login", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: window.email, pass: pas}),
+        }).then((res2) => res2.json());
+        window.user = res2.data.user;
+        window.foto = res2.data.foto;
+        window.nombre = res2.data.name;
+        window.public = res2.data.filespublic;
+        window.private = res2.data.filesprivate;
 
 
 
