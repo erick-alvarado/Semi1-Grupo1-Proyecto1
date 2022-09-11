@@ -13,7 +13,6 @@ export const ViewArchivos = () => {
       <button className='AA_button_VA'>VER ARCHIVO</button>
       </div>
       <div className='container_AA_view'>
-      
       </div>
       </div>
       </div>
