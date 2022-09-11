@@ -3,6 +3,8 @@ import React, {useState} from "react";
 
 export const AgregarAmigos = () => {
   const [pas, setPas] = useState("");
+  const [amigo, setAmigo] = useState("")
+
 
 
   return (
@@ -32,7 +34,7 @@ export const AgregarAmigos = () => {
                     <div className={"item-text"}>
                         <h4>{index.user}</h4>
                         <h5>{index.filespublic} archivos publicos </h5>
-                        <button type='submit'>Agregar Amigo</button>
+                        <button  onClick={()=>veamos(index.idUser)}  >Agregar Amigo</button>
                     </div>
                     </div>
                     )
@@ -46,4 +48,15 @@ export const AgregarAmigos = () => {
       </div>
     </div>
   )
+}
+
+
+export const veamos = async(data) => {
+console.log(data)
+const res = await fetch("http://3.83.13.128:8080/api/addfriend", {
+        method: "POST",
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify({ user: window.user, amigo: data}),
+    }).then((res) => res.json());
+    alert(JSON.stringify(`${res.msg}`));
 }
