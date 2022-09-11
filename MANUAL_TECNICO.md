@@ -23,7 +23,7 @@
 
 Toda la arquitectura del software realizado fue colocada en la nube para su facil acceso y alta disponibilidad, esto debido a que fue colocada utilizando los servicios de AWS, empresa la cual es la numero 1 con respecto a cloud computing, esto segun un estudio realizado por Garntner.
 
-![imagen0](images/arquitectura.png)
+![arquitectura](Images/arquitectura.png)
 
 ### Sitio web estatico
 El sitio web estatico fue realizado utilizando la herramienta React y alojado en S3 para que pueda ser accedido mediante una URL por cualquier dispositivo con acceso a internet.
