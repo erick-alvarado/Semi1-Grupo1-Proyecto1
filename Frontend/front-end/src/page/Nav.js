@@ -25,7 +25,10 @@ export const Nav = () => {
                         <NavLink to="/AgregarAmigos">Agregar Amigo</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/Principal">Ver Archivos</NavLink>
+                        <NavLink to="/ViewArchivos">Ver Archivos</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/Principal">Principal</NavLink>
                     </li>
                 </ul>
             </div>

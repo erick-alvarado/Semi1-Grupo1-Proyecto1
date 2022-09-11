@@ -10,6 +10,9 @@ export const AgregarAmigos = () => {
       <div className='AA_text'>
       <label htmlFor="uname" style={{color:"BLACK" } }><b>USUARIO</b></label>
       <input type="text" placeholder="Ingres el  Username" name="uname" onChange={ (e)=>setPas(e.target.value)  }></input>
+      <div className='container_AA_view'>
+
+      </div>
       </div>
       </div>
     </div>
