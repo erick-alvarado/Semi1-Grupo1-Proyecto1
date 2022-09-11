@@ -7,6 +7,8 @@ window.foto = '';
 window.nombre = '';
 window.public = [];
 window.private = [];
+window.email = ''
+window.passs=''
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

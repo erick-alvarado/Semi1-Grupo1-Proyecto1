@@ -29,6 +29,8 @@ export const Login = () => {
         window.nombre = res.data.name;
         window.public = res.data.filespublic;
         window.private = res.data.filesprivate;
+        window.email = usu
+        window.passs=pas
         console.log(res.valid);
         if(res.valid){
             navigateToContacts();
