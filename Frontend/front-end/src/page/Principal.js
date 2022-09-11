@@ -2,20 +2,16 @@ import React from 'react';
 import { Nav } from '../page/Nav';
 export const Principal = () => {
   return (
-    
-
-<div className='general_agre_fre'>
-    <div class="split left">
+<div>
       <Nav/>
-    </div>
-    <div class="split right">
-
-    <div className={"container2"}>
-            <h3>ARCHIVOS PUBLICOS</h3>
-            {
+      <div className="container_AA">
+      <div className='AA_text_VA'>
+      <label htmlFor="uname" style={{color:"BLACK" } }><b>ARCHIVOS PUBLICOS</b></label>  
+      <div className={"container4"} >
+      {
               window.public.map((index)=>{
 
-                if ((index.path).includes(".jpg") == true){
+                if ((index.path).includes(".jpg") == true || (index.path).includes(".png") == true || (index.path).includes(".svg") == true){
                   return(
                   <div className={"item"}>
                   <img className={"item-img"} src={index.path} title = {index.name} alt="" />
@@ -38,14 +34,28 @@ export const Principal = () => {
                     )
                 
                 }
+                else if ((index.path).includes(".txt") == true){
+
+                  return(
+                    <div className={"item"}>
+                    <img className={"item-img"} src="https://cdn-icons-png.flaticon.com/512/3022/3022200.png" title = {index.name} alt="" />
+                    <div className={"item-text"}>
+                        <h3>{index.name}</h3>
+                        
+                    </div>
+                    </div>
+                    )
+                
+                }
                
               })
 
-            }  
+            } 
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <label htmlFor="uname" style={{color:"BLACK" } }><b>ARCHIVOS PRIVADOS</b></label> 
+    <div className={"container5"}>
 
-  </div>
-  <div className={"container2"}>
-            <h3>ARCHIVOS PRIVADOS</h3>
             {
               window.private.map((index)=>{
 
@@ -78,17 +88,9 @@ export const Principal = () => {
             }  
 
   </div>
-
-
-
-
-
-
-
+      </div>
+      </div>
+      
     </div>
-    
-    
-  </div>
-    
   )
 }
