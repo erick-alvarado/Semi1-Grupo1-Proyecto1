@@ -600,16 +600,13 @@ div.edit_contener{
 }
 .bt_edi{
   background-color: #04AA6D;
-  margin: auto;
   cursor: pointer;
   text-align: center;
   color: white;
   padding: 10px 10px;
   border-radius: 10px;
   width: 25%;
-  position: fixed;
-  top: 27%;
-  left: 48%;
+
 }
 .bt_edi_acep{
   background-color: #04AA6D;
@@ -674,12 +671,12 @@ div.edit_contener{
 }
 .radio_edit{
   background-color: orange;
-  width: 10%;
-  height: 10%;
-  position: fixed;
+  width: 20%;
+  height: 12%;
+  position: absolute;
   border-radius: 460px;
-  top: 53%;
-  left: 55%;
+  top: 55%;
+  left: 40%;
   text-align: center;
 }
 .general_agre_fre{
@@ -690,4 +687,11 @@ div.edit_contener{
   border-radius: 25px;
   width: 70%;
   height: 10%;
+
+}
+.center_election{
+  text-align: center;
+  position: fixed;
+  top: 56%;
+  left: 56.5%;
 }

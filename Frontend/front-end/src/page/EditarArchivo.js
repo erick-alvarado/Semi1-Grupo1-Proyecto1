@@ -81,19 +81,18 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
             }  
       </select>
       <br/>
-      <br/>
       <label htmlFor="psw" style={{color:"Black"}}><b>SI DESEA CAMBIAR EL NOMBRE ESCRIBA ABAJO DE LO CONTRARIO DEJE EN BLANCO</b></label>
       <div className="text_edit_file">
       <input type="text" placeholder="Enter Name File" name="psw" onChange={ (e)=>setFile(e.target.value) }></input>
       </div>
-      <br/><br/><br/>  
-      <br/>
+      <br/><br/><br/>  <br/>
       <label htmlFor="psw" style={{color:"Black"}}><b>VISIBILIDAD</b></label>
       <br/>
       <br/>
-      <div className="radio_edit">
 
-      <FormGroup>
+      <div className="radio_edit">
+            <div className="center_election">
+            <FormGroup>
        <label style={{color:"Black"}}><b>Privado</b></label>
         <input
           id="radio1"
@@ -113,6 +112,7 @@ const res2 = await fetch("http://3.83.13.128:8080/api/login", {
           onChange={cambioRadio}
           />
        </FormGroup>
+            </div>
       </div>
 
        <br/>
