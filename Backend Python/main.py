@@ -133,7 +133,7 @@ def login():
         resultado = cur.fetchone()
         ##Primero reviso que si haya un usuario con ese correo
         if resultado == None:
-            response = {"data":data,"msg":"Credenciales incorrectas","Success":"false"}
+            response = {"data":data,"msg":"Credenciales incorrectas","valid":"false"}
             return jsonify(response)
         else:
             ##Segundo reviso que su contraseña ingresada sea la misma que la Base de datos
@@ -192,7 +192,7 @@ def uploadfile():
     cur.execute(query)
     resultado = cur.fetchone()
     if resultado == None:
-        response = {"msg":"Error, por favor contacte al administrador","Success":"false"}
+        response = {"msg":"Error, por favor contacte al administrador","valid":"false"}
         return jsonify(response)
     else:
         ##Segundo reviso que su contraseña ingresada sea la misma que la Base de datos
@@ -231,7 +231,7 @@ def uploadfile():
                         'Bucket': s3_bucket_name,
                         'Key': object_name
                     },
-                    ExpiresIn=3600
+                    ExpiresIn=432000
                 )
                 return response
             
@@ -253,7 +253,7 @@ def uploadfile():
 
 
         else:
-            response = {"msg":"Password incorrecto","Success":"false"}
+            response = {"msg":"Password incorrecto","valid":"false"}
             return jsonify(response)
 
 @app.route('/api/deletefile/<id>', methods=['DELETE'])
@@ -349,7 +349,7 @@ def allusers():
         filespublic =[]
 
 
-    response = {"msg":datausu,"Success":"true"}
+    response = {"msg":datausu,"valid":"true"}
     return jsonify(response)
 
 @app.route('/api/addfriend', methods=['POST'])
@@ -407,7 +407,7 @@ def viewfiles(id):
 
 @app.route('/', methods=['GET'])
 def main():
-    response = {"msg":"hola Erick", "data":"true"}
+    response = {"msg":"todo bien", "data":"true"}
     return jsonify(response)
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8080)
