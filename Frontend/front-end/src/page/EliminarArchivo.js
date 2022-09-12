@@ -8,7 +8,7 @@ export const EliminarArchivo = () => {
   const {  handleSubmit } = useForm();
 
   const onSubmit = async(data)=>{
-    const res = await fetch("http://3.83.13.128:8080/api/deletefile/"+window.user,{
+    const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/deletefile/"+window.user,{
       method:"DELETE",
       headers:{'Content-Type': 'application/json'},
       body:JSON.stringify({ contrasena: pas, NombreArchivo: value}),
@@ -16,18 +16,16 @@ export const EliminarArchivo = () => {
     alert(JSON.stringify(`${res.msg}`));
       
     
+      const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: window.email, pass: pas}),
+      }).then((res2) => res2.json());
+          window.user = res2.data.user;
+          window.foto = res2.data.foto;
+          window.nombre = res2.data.name;
+          window.public = res2.data.filespublic;
     
-    if(res.valid == "true"){
-        const res2 = await fetch("http://3.83.13.128:8080/api/login", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: window.email, pass: pas}),
-        }).then((res2) => res2.json());
-            window.user = res2.data.user;
-            window.foto = res2.data.foto;
-            window.nombre = res2.data.name;
-            window.public = res2.data.filespublic;
-      }
     
 
   }

@@ -18,7 +18,7 @@ export const Login = () => {
     const {  handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
-        const res = await fetch("http://3.83.13.128:8080/api/login", {
+        const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: usu, pass: pas }),
@@ -33,14 +33,14 @@ export const Login = () => {
             window.passs=pas
         
 
-            const res2 = await fetch("http://3.83.13.128:8080/api/allusers", {
+            const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/allusers", {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
         }).then((res2) => res2.json());
 
             window.users = res2.msg
 
-            const res3 = await fetch("http://3.83.13.128:8080/api/viewfiles/"+window.user, {
+            const res3 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/viewfiles/"+window.user, {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
         }).then((res3) => res3.json());

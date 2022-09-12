@@ -53,14 +53,14 @@ export const AgregarAmigos = () => {
 
 export const veamos = async(data) => {
 console.log(data)
-const res = await fetch("http://3.83.13.128:8080/api/addfriend", {
+const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/addfriend", {
         method: "POST",
         headers:{'Content-Type': 'application/json'},
         body: JSON.stringify({ user: window.user, amigo: data}),
     }).then((res) => res.json());
     alert(JSON.stringify(`${res.msg}`));
 
-    const res3 = await fetch("http://3.83.13.128:8080/api/viewfiles/"+window.user, {
+    const res3 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/viewfiles/"+window.user, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
   }).then((res3) => res3.json());

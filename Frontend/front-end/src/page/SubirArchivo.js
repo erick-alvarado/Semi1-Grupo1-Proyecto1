@@ -17,6 +17,8 @@ export const SubirArchivo = () => {
   function nombrefilee(fileInput){
 
     setfilesel(fileInput)
+
+    register("file")
     
   }
 
@@ -30,14 +32,14 @@ export const SubirArchivo = () => {
       formData.append("file", data.file[0]);
       formData.append("Private", tipo);
   
-      const res = await fetch("http://3.83.13.128:8080/api/uploadfile", {
+      const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/uploadfile", {
           method: "POST",
           body: formData,
       }).then((res) => res.json());
       alert(JSON.stringify(`${res.msg}`));
 
-      if(res.valid == true){
-          const res2 = await fetch("http://3.83.13.128:8080/api/login", {
+      if(res.valid == "true"){
+          const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: window.email, pass: pas}),
@@ -76,14 +78,15 @@ export const SubirArchivo = () => {
           <br></br>
           <br></br>
           <label htmlFor="uname" style={{color:"Black"}}><b>CONTRASEÑA</b></label>
-          <input type="text" placeholder="Ingrese su contraseña" name="uname"  onChange={ (e)=>setPas(e.target.value)} />
+          <input type="password" placeholder="Ingrese su contraseña" name="uname"  onChange={ (e)=>setPas(e.target.value)} />
         </div>
         <div className='container_imgSA'>
           <div className="imgcontainer_SA">
             <img src={user} alt="Avatar" className="avatar_SA"/>
             <label className="bt_SA">
               <span>ESCOGER ARCHIVO </span>
-              <input id="imagen" hidden type="file" {...register("file") } onChange={()=>nombrefilee(document.getElementById('imagen').files[0].name)} multiple  ></input>
+              <input id="imagen" hidden type="file" {...register("file") }  multiple  ></input>  
+              {/* onChange={() =>nombrefilee(document.getElementById('imagen').files[0].name)} */}
             </label>
             <div className='bt_aceptarSA'>
               <button type="submit" className='button_login'>SUBIR</button>
