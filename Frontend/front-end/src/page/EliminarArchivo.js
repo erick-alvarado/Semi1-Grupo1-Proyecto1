@@ -8,7 +8,7 @@ export const EliminarArchivo = () => {
   const {  handleSubmit } = useForm();
 
   const onSubmit = async(data)=>{
-    const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/deletefile/"+window.user,{
+    const res = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/deletefile/"+window.user,{
       method:"DELETE",
       headers:{'Content-Type': 'application/json'},
       body:JSON.stringify({ contrasena: pas, NombreArchivo: value}),
@@ -16,7 +16,7 @@ export const EliminarArchivo = () => {
     alert(JSON.stringify(`${res.msg}`));
       
     
-      const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
+      const res2 = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/login", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: window.email, pass: pas}),

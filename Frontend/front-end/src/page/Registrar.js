@@ -22,7 +22,7 @@ export const Registrar = () => {
     if(pas == pas2){
 
       if(data.file[0] != null){
-        const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/registro", {
+        const res = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/registro", {
           method: "POST",
           body: formData,
       }).then((res) => res.json());

@@ -29,7 +29,7 @@ const onSubmit = async(data)=>{
   console.log(JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }))
 
 
-  const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/editfile/"+window.user,{
+  const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/editfile/"+window.user,{
     method:"PUT",
     headers:{'Content-Type': 'application/json'},
     body:JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }),
@@ -37,7 +37,7 @@ const onSubmit = async(data)=>{
   alert(res.msg)
 
 
-const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
+const res2 = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: window.email, pass: pas}),

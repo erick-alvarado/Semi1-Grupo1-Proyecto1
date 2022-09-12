@@ -32,14 +32,14 @@ export const SubirArchivo = () => {
       formData.append("file", data.file[0]);
       formData.append("Private", tipo);
   
-      const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/uploadfile", {
+      const res = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/uploadfile", {
           method: "POST",
           body: formData,
       }).then((res) => res.json());
       alert(JSON.stringify(`${res.msg}`));
 
       if(res.valid == "true"){
-          const res2 = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/:8080/api/login", {
+          const res2 = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: window.email, pass: pas}),
