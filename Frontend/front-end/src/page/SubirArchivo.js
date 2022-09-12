@@ -15,26 +15,29 @@ export const SubirArchivo = () => {
   }
 
   function nombrefilee(fileInput){
-    var files = fileInput;
-    console.log(files)
+
+    setfilesel(fileInput)
     
   }
 
+
   const onSubmit = async(data)=>{
-    const formData = new FormData();
-    formData.append("user", window.user);
-    formData.append("contrasena", pas);
-    formData.append("nombre", filename);
-    formData.append("file", data.file[0]);
-    formData.append("Private", tipo);
+    if(pas != ""){
+      const formData = new FormData();
+      formData.append("user", window.user);
+      formData.append("contrasena", pas);
+      formData.append("nombre", filename);
+      formData.append("file", data.file[0]);
+      formData.append("Private", tipo);
+  
+      const res = await fetch("http://3.83.13.128:8080/api/uploadfile", {
+          method: "POST",
+          body: formData,
+      }).then((res) => res.json());
+      alert(JSON.stringify(`${res.msg}`));
 
-    const res = await fetch("http://3.83.13.128:8080/api/uploadfile", {
-        method: "POST",
-        body: formData,
-    }).then((res) => res.json());
-    alert(JSON.stringify(`${res.msg}`));
-
-    const res2 = await fetch("http://3.83.13.128:8080/api/login", {
+      if(res.valid == true){
+          const res2 = await fetch("http://3.83.13.128:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: window.email, pass: pas}),
@@ -44,6 +47,13 @@ export const SubirArchivo = () => {
         window.nombre = res2.data.name;
         window.public = res2.data.filespublic;
         window.private = res2.data.filesprivate;
+      }
+
+  
+      
+    }else{
+      alert("Por favor ingresar la contraseña");
+    }
 
 
   }
@@ -56,7 +66,7 @@ export const SubirArchivo = () => {
           <input type="text" placeholder="Ingrese el nombre del archivo" name="uname" onChange={ (e)=>setfilename(e.target.value) }  />
           <br></br>
           <label htmlFor="uname" style={{color:"Black"}}><b>ARCHIVO SELECIONADO</b></label>
-          <input type="text" placeholder="" name="uname" />
+          <input type="text" readOnly="readonly" placeholder={filesel} name="uname" />
           <br></br>
           <h3>TIPO DE ARCHIVO</h3>
           <p>
@@ -73,7 +83,7 @@ export const SubirArchivo = () => {
             <img src={user} alt="Avatar" className="avatar_SA"/>
             <label className="bt_SA">
               <span>ESCOGER ARCHIVO </span>
-              <input  hidden type="file" {...register("file") } multiple  ></input>
+              <input id="imagen" hidden type="file" {...register("file") } onChange={()=>nombrefilee(document.getElementById('imagen').files[0].name)} multiple  ></input>
             </label>
             <div className='bt_aceptarSA'>
               <button type="submit" className='button_login'>SUBIR</button>
