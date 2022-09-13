@@ -1,6 +1,5 @@
-# <center> MANUAL DE USUARIO </center>
+**<h1 align="center"> MANUAL DE USUARIO.</h1>**
 
-## <center>1. MANUAL DE USUARIO </center>
 ----
 **<h4 align="center"> PANTALLA DE LOGIN.</h4>**
 <p align="justify"> En la primera imagen podemos ingresar con un usuario ya registrado dentro de la pagina web o bien se puede registrar en el link "Aun no te ha registrado?
