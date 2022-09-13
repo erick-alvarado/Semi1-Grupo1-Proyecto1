@@ -30,8 +30,25 @@ export const Nav = () => {
                     <li>
                         <NavLink to="/Principal">Principal</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/" onClick={()=>veamos()}>Salir</NavLink>
+                    </li>
                 </ul>
             </div>
         </div>
   )
 }
+
+
+const veamos = async() => {
+    window.user = '';
+    window.foto = '';
+    window.nombre = '';
+    window.public = [];
+    window.private = [];
+    window.email = ''
+    window.passs=''
+    window.users=[]
+    window.filefriends=[]
+
+    }

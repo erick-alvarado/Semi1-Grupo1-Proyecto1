@@ -22,24 +22,22 @@ export const EditarArchivo = () => {
 
 const onSubmit = async(data)=>{
   
-  if(value == ""){
+  if(file == ""){
     file = value
   }
+
   console.log(JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }))
 
 
-  const res = await fetch("http://3.83.13.128:8080/api/editfile/"+window.user,{
+  const res = await fetch("http://http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/editfile/"+window.user,{
     method:"PUT",
     headers:{'Content-Type': 'application/json'},
     body:JSON.stringify({ nombre: value, CambioNombre: file, contrasena:pas,Private:tipo }),
   }).then((res) => res.json());
+  alert(res.msg)
 
-  if(res.valid){
-    
-    
-}
 
-const res2 = await fetch("http://3.83.13.128:8080/api/login", {
+const res2 = await fetch("http://bala-1285632499.us-east-1.elb.amazonaws.com:8080/api/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: window.email, pass: pas}),

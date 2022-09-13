@@ -15,7 +15,7 @@ export const ViewArchivos = () => {
       <div className={"container3"} >
         {
               window.filefriends.map((index)=>{
-                if ((index.archivo).includes(".jpg") == true){
+                if ((index.archivo).includes(".jpg") == true || (index.archivo).includes(".png") == true || (index.archivo).includes(".svg") == true){
                   return(
                   <div className={"item"}>
                   <img className={"item-img"} src={index.archivo} title = {index.name} alt="" />
@@ -31,12 +31,34 @@ export const ViewArchivos = () => {
 
                   return(
                     <div className={"item"}>
-                    <img className={"item-img"} src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png" title = {index.name} alt="" />
-                    <div className={"item-text"}>
-                        <h3>{index.name}</h3>
+                  <img className={"item-img"} src={"https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"} title = {index.name} alt="" />
+                  <div className={"item-text"}>
+                      <h5>Nombre: {index.nombre}</h5>
+                      <h5>Propietario: {index.propietario}</h5>
+                      <h5>fecha: {index.fecha}</h5>
+                    
+                  </div>
+                  </div>
                         
-                    </div>
-                    </div>
+                    )
+                
+                }
+                else if ((index.archivo).includes(".txt") == true){
+
+                  return(
+                    <div className={"item"}>
+                  <img className={"item-img"} src={"https://cdn-icons-png.flaticon.com/512/3022/3022200.png"} title = {index.name} alt="" />
+                  <div className={"item-text"}>
+                      <h5>Nombre: {index.nombre}</h5>
+                      <h5>Propietario: {index.propietario}</h5>
+                      <h5>fecha: {index.fecha}</h5>
+                    
+                  </div>
+                  </div>
+
+
+
+               
                     )
                 
                 }

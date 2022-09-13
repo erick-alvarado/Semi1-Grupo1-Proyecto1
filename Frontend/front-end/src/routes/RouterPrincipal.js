@@ -15,7 +15,7 @@ export const RouterPrincipal = () => {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/registrar" element={<Registrar />} />
+            <Route path="/Registrar" element={<Registrar />} />
             <Route path="/Nav" element={<Nav />} />
             <Route path="/Principal" element={<Principal />} />
             <Route path="/SubirArchivo" element={<SubirArchivo />} />
