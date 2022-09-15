@@ -7,6 +7,13 @@
 - Mostrar mediante imagenes el flujo que el usuario debería tener dentro de la aplicación para dar el correcto uso a la misma.
 
 ----
+**<h3 align="center"> EXPLICACION DE LA APLICACION.</h3>**
+Super-Storage es una aplicacion que nos permite crear un perfil y subir archivos pdf, txt o imagenes que queramos guardar en la nube. Tendremos la opción de escoger si queremos que sea privado (solo nosotros podremos ver esos archivos) o publicos (cualquier persona que nos agregue podrá ver nuestros archivos.). Al subir archivos podremos hacer distintas acciones con ellos, como eliminar el archivo,editar el archivo (Cambiar de nombre o visibilidad de publico a privado o viceversa). 
+
+Tendrá una opción para agregar amigos, en la cual al agregarlos tendremos la posibilidad de ver los archivos publicos de ellos.
+
+
+----
 **<h4 align="center"> PANTALLA DE LOGIN.</h4>**
 <p align="justify"> En la primera imagen podemos ingresar con un usuario ya registrado dentro de la pagina web o bien se puede registrar en el link "Aun no te ha registrado?
 </p>
