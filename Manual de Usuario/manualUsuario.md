@@ -1,6 +1,12 @@
 **<h1 align="center"> MANUAL DE USUARIO.</h1>**
 
 ----
+**<h4 align="center"> OBJETIVOS</h4>**
+- Facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado.
+- Dar a conocer todas las funciones y operaciones que este sistema ofrece, al mismo tiempo que se detalla cada una de las anteriormente mencionadas.
+- Mostrar mediante imagenes el flujo que el usuario debería tener dentro de la aplicación para dar el correcto uso a la misma.
+
+----
 **<h4 align="center"> PANTALLA DE LOGIN.</h4>**
 <p align="justify"> En la primera imagen podemos ingresar con un usuario ya registrado dentro de la pagina web o bien se puede registrar en el link "Aun no te ha registrado?
 </p>
