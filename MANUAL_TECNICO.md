@@ -41,8 +41,27 @@ El bucket de imagenes es un bucket de S3 en AWS, el cual es un servicio de aloja
 Para la base de datos se creo una instancia de MySQL desde RDS el cual es un servicio de AWS que proporciona bases de datos relacionales en la nube.
 
 ## DESCRIPCION USUARIOS IAM
+Se crearon multiples tipos de usuario con acceso restringido a las distintas caracteristicas de aws. 
+
+- Administrador: posee todos los permisos sobre la cuenta de aws
+- dataUser: contiene permisos a bucket y base de datos
+- macUser: posee permisos a servicios de EC2 para el manejo de maquinas virtuales.
+
+![arquitectura](Images/iam.png)
 
 ## CONFIGURACION DE CADA SERVICIO
+- EC2
+
+    ![arquitectura](Images/ec2.png)
+
+- LoadBalancer
+
+    ![arquitectura](Images/loadbalancer.png)
+
+- RDS
+
+    ![arquitectura](Images/rds.png)
+
 
 ## CONCLUSIONES 
 - Se desarrollo una aplicacion cumpliendo los requerimientos solicitados, todo esto utilizando tecnologias alojadas en la nube. La aplicacion puede ser accedida mediante una URL desde cualquier dispositivo en el mundo con acceso a internet.
