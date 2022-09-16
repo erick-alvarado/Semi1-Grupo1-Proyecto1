@@ -52,15 +52,40 @@ Se crearon multiples tipos de usuario con acceso restringido a las distintas car
 ## CONFIGURACION DE CADA SERVICIO
 - EC2
 
+    En el servicio de EC2 se crearon dos imagenes, estas contienen los servidores de nodejs y flask. 
+
     ![arquitectura](Images/ec2.png)
+
+    Se utilizo la configuracion basica en ambas maquinas virtuales, utilizando un almacenamiento de 15 GB y sistema operativo Ubuntu. Asimismo se crearon las reglas de firewall necesarias para el acceso a la misma mediante llaves. Finalmente se lanzaron dos instancias de la configuracion. 
+
+    ![arquitectura](Images/ec2conf.png)
+
 
 - LoadBalancer
 
+    En la creacion del load balancer se agregaron las maquinas virtuales de ec2 creadas previamente, con sus respectivos puertos y se utilizo como check la ruta inicial "/". 
+
     ![arquitectura](Images/loadbalancer.png)
+
+    Configuracion de ips y puertos
+
+    ![arquitectura](Images/loadconf.png)
 
 - RDS
 
+    Se utilizo una base de datos relacional en MySQL, esta contiene todos los datos de almacenamiento de la aplicacion.
+
     ![arquitectura](Images/rds.png)
+
+    El servicio se configuro con los detalles basicos de una base de datos, con una capacidad de almacenamiento de 20 GB
+
+    ![arquitectura](Images/rdsconf.png)
+
+
+    El ER utilizado es el siguiente:
+
+    ![arquitectura](Images/er.png)
+
 
 
 ## CONCLUSIONES 
